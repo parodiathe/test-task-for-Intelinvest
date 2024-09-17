@@ -13,7 +13,7 @@ public class EthereumService {
 
     private final String ApiKey = "3JM4USGSUGM3K825132PYMVPH413FWBSJZ";
 
-    public double getBalance(String address) {
+    public String getBalance(String address) {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -27,9 +27,9 @@ public class EthereumService {
         GetBalanceResponse response = restTemplate.getForObject(url, GetBalanceResponse.class);
 
         if (response != null ){
-            double balance = Double.parseDouble(response.getResult());
-            double newBalance = balance / 1e18 ;
-            return newBalance;
+            BigDecimal balance = new BigDecimal(response.getResult());
+            BigDecimal newBalance = balance.divide(BigDecimal.valueOf(1e18));
+            return newBalance.toPlainString();
         }
         else {
             throw new RuntimeException("I cant see your balance, sorry");
