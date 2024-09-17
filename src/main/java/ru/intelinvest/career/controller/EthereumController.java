@@ -18,7 +18,7 @@ public class EthereumController {
     }
 
     @GetMapping("/balance")
-    public double getEthereumBalance(@RequestParam String address) {
+    public String getEthereumBalance(@RequestParam String address) {
         return ethereumService.getBalance(address);
     }
 
